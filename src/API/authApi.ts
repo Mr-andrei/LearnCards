@@ -30,8 +30,8 @@ export const authApi = {
         return instance.put<UpdateUser>('/auth/me', { name, avatar });
     },
 
-    forgotPassword(email: string, from: string) {
-        return instance.post<ForgotPasswordResponse>('/auth/forgot', { email, from });
+    forgotPassword(email: string, from: string, message: string) {
+        return instance.post<ForgotPasswordResponse>('/auth/forgot', { email, from, message });
     },
     setNewPassword(password: string, token: string) {
         return instance.post<SetNewPasswordResponse>('/auth/set-new-password', { password, token });

@@ -72,6 +72,7 @@ const LoginPage = () => {
                         }}
                     />
                 </InputBlock>
+                <LinkStyled to={'/passwordRecovery'}>Forgot Password</LinkStyled>
             </InputsContainer>
             <ButtonBlock>
                 <Button type="submit" color="primary" variant="contained">

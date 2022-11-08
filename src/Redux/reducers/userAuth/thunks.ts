@@ -15,6 +15,11 @@ export type UpdateUser = {
     name: string;
     avatar?: string;
 };
+export type PasswordRecovery = {
+    email: string;
+};
+const message = `<div style="background-color: lime; padding: 15px">password recovery link: 
+                     <a href='http://localhost:3000/set-new-password/$token$'>link</a></div>`;
 
 export const logInUser = createAsyncThunk('user/logIn', async (params: LoginParams, { dispatch }) => {
     const { email, password, rememberMe } = params;
@@ -56,7 +61,7 @@ export const logOutUSer = createAsyncThunk('user/logOut', async (params, { dispa
         console.log(e, dispatch);
     }
 });
-export const editUserData = createAsyncThunk('user/logOut', async (params: UpdateUser, { dispatch }) => {
+export const editUserData = createAsyncThunk('user/updateUser', async (params: UpdateUser, { dispatch }) => {
     try {
         const { name, avatar } = params;
         const response = await authApi.updateUser(name, avatar);
@@ -66,3 +71,18 @@ export const editUserData = createAsyncThunk('user/logOut', async (params: Updat
         console.log(e, dispatch);
     }
 });
+export const passwordRecovery = createAsyncThunk(
+    'user/passwordRecovery',
+    async (params: PasswordRecovery, { dispatch }) => {
+        try {
+            const { email } = params;
+            const response = await authApi.forgotPassword(email, 'UserName', message);
+
+            // const response = await authApi.updateUser(name, avatar);
+            // dispatch(setUserData(response.data.updatedUser));
+            // dispatch(setIsAuth(true));
+        } catch (e) {
+            console.log(e, dispatch);
+        }
+    }
+);
